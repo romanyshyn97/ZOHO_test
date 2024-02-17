@@ -3,6 +3,9 @@ import { Form, Field } from 'vee-validate';
 import {reactive, ref} from "vue";
 import * as yup from "yup";
 import {useValidationObject} from "../composable/useValidationObject.ts";
+import { useToast } from "primevue/usetoast";
+import Toast from 'primevue/toast';
+const toast = useToast();
 
 const phoneRegExp = new RegExp(
     "^((\\\\[1-9]{1,4}[ \\\\-]*)|(\\\\([0-9]{2,3}\\\\)[ \\\\-]*)|([0-9]{2,4})[ \\\\-]*)*?[0-9]{3,4}?[ \\\\-]*[0-9]{3,4}?$"
@@ -41,14 +44,24 @@ const {
     }
 ])
 
+const showToast = (severity, message) => {
+    switch (severity) {
+        case 'success':
+            return toast.add({severity: 'success', summary: 'Success Message', detail: message, life: 3000});
+        case 'error':
+            return toast.add({ severity: 'error', summary: 'Error Message', detail: message, life: 3000 });
+    }
+
+};
+
 const submit = handleSubmit((data) => {
     axios.post(
         '/submit',
         data
     ).then(() => {
-
-    }).catch((response) => {
-
+        showToast('success', 'Your data saved in Zoho CRM')
+    }).catch((e) => {
+        showToast('error', e)
     })
 })
 
@@ -56,6 +69,7 @@ const submit = handleSubmit((data) => {
 
 <template>
     <div class="container m-auto w-full flex items-center justify-center min-h-screen">
+        <Toast/>
         <form class="bg-blue-100 rounded-xl p-12 w-1/2" @submit="submit">
             <h2 class="text-center font-bold">Deal</h2>
                 <div class="flex flex-col gap-2">

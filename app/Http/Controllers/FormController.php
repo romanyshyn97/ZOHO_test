@@ -31,12 +31,12 @@ class FormController
             ]
         ];
 
-        $responseDeals = Http::withHeaders(
+        Http::withHeaders(
             ['Authorization' => $token]
         )
             ->post("https://www.zohoapis.eu/crm/v2/Deals", $dealData);
 
-        $responseAccounts = Http::withHeaders(
+        Http::withHeaders(
             ['Authorization' => $token]
         )
             ->post("https://www.zohoapis.eu/crm/v2/Accounts", $accountData);
