@@ -23,22 +23,22 @@ const {
         key: 'stage',
         rules: yup.string().required()
     },
-    // {
-    //     key: 'accountName',
-    //     rules: yup.string().required()
-    // },
-    // {
-    //     key: 'website',
-    //     rules: yup.string().required().matches(URL, 'Enter a valid url')
-    //
-    //
-    // },
-    // {
-    //     key: 'phone',
-    //     rules: yup.string().required().matches(phoneRegExp, 'Phone number is not valid')
-    //
-    //
-    // }
+    {
+        key: 'accountName',
+        rules: yup.string().required()
+    },
+    {
+        key: 'website',
+        rules: yup.string().required().matches(URL, 'Enter a valid url')
+
+
+    },
+    {
+        key: 'phone',
+        rules: yup.string().required().matches(phoneRegExp, 'Phone number is not valid')
+
+
+    }
 ])
 
 const submit = handleSubmit((data) => {
@@ -56,8 +56,8 @@ const submit = handleSubmit((data) => {
 
 <template>
     <div class="container m-auto w-full flex items-center justify-center min-h-screen">
-        <form class="bg-zinc-100 rounded-xl p-12" @submit="submit">
-            <h2 class="text-center">Deal</h2>
+        <form class="bg-blue-100 rounded-xl p-12 w-1/2" @submit="submit">
+            <h2 class="text-center font-bold">Deal</h2>
                 <div class="flex flex-col gap-2">
                     <label for="username">Name</label>
                     <InputText id="username" v-model="data.dealName" />
@@ -72,29 +72,29 @@ const submit = handleSubmit((data) => {
                         {{errors.stage}}
                     </div>
                 </div>
-<!--            <h2 class="text-center">Account</h2>-->
-<!--                <div class="flex flex-col gap-2">-->
-<!--                    <label for="account">Name</label>-->
-<!--                    <InputText id="account" v-model="data.accountName" />-->
-<!--                    <div v-if="errors.accountName" class="text-sm text-red-500">-->
-<!--                        {{errors.accountName}}-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="flex flex-col gap-2">-->
-<!--                    <label for="website">Website</label>-->
-<!--                    <InputText id="website" v-model="data.website" />-->
-<!--                    <div v-if="errors.website" class="text-sm text-red-500">-->
-<!--                        {{errors.website}}-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="flex flex-col gap-2">-->
-<!--                    <label for="phone">Phone</label>-->
-<!--                    <InputText id="phone" v-model="data.phone" />-->
-<!--                    <div v-if="errors.phone" class="text-sm text-red-500">-->
-<!--                        {{errors.phone}}-->
-<!--                    </div>-->
-<!--                </div>-->
-            <button type="submit" class="btn btn-primary mt-4">Submit </button>
+            <h2 class="text-center font-bold mt-4">Account</h2>
+                <div class="flex flex-col gap-2">
+                    <label for="account">Name</label>
+                    <InputText id="account" v-model="data.accountName" />
+                    <div v-if="errors.accountName" class="text-sm text-red-500">
+                        {{errors.accountName}}
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="website">Website</label>
+                    <InputText id="website" v-model="data.website" />
+                    <div v-if="errors.website" class="text-sm text-red-500">
+                        {{errors.website}}
+                    </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="phone">Phone</label>
+                    <InputText id="phone" v-model="data.phone" />
+                    <div v-if="errors.phone" class="text-sm text-red-500">
+                        {{errors.phone}}
+                    </div>
+                </div>
+            <button class="btn btn-primary w-full mt-4">Submit</button>
         </form>
 
     </div>
