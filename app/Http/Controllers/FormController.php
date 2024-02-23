@@ -12,34 +12,41 @@ class FormController
     {
         $token = ZohoOauth::latest()->first()?->auth_token;
 
-        $dealData = [
-            "data" => [
-                [
-                    "Deal_Name" => $request->dealName,
-                    "Stage" => $request->stage
-                ]
-            ]
-        ];
-
         $accountData = [
             "data" => [
                 [
                     "Account_Name" => $request->accountName,
                     "Website" => $request->website,
-                    'Phone' => $request->phone
+                    'Phone' => $request->phone,
+                ]
+            ]
+        ];
+
+        $account =Http::withHeaders(
+            ['Authorization' => $token]
+        )
+            ->post("https://www.zohoapis.eu/crm/v2/Accounts", $accountData);
+
+        $dealData = [
+            "data" => [
+                [
+                    "Deal_Name" => $request->dealName,
+                    "Stage" => $request->stage,
+                    "Account_Name" => [
+                        'id' => $account['data'][0]['details']['id']
+                        ]
+
                 ]
             ]
         ];
 
         Http::withHeaders(
-            ['Authorization' => $token]
+            [
+                'Authorization' => $token,
+            ]
         )
             ->post("https://www.zohoapis.eu/crm/v2/Deals", $dealData);
 
-        Http::withHeaders(
-            ['Authorization' => $token]
-        )
-            ->post("https://www.zohoapis.eu/crm/v2/Accounts", $accountData);
 
         return [];
     }
